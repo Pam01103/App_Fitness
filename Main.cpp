@@ -6,92 +6,228 @@ using namespace std;
 
 int main()
 {
-    int OP=0;
-    
-    do
-    {
-    	cout<<"\n ********************** Menu Principal **************************\n";
-    	cout<<"                    1. Ingesta de calorias\n";
-    	cout<<"                    2. Quema de calorias\n";
-    	cout<<"                    3. Registro de rendimiento\n";
-    	cout<<"                    4. Calculos ";
-    	cin>>OP; 
-    	//utilizamos un switch con la finalidad de crear diferentes menus que sean amigables con el usuario 
-    	switch(OP)
-    	{
-    		case 1:break; 
-    		case 2: break; 
-    		case 3:
-    		int opcionR;
-    		// submenu 3 
-    		system("cls");
-    		cout<<"------------------BIENVENIDO A TU REGISTRO DE RENDIMIENTO--------------------\n";
-    		cout<<"                 Cuentanos, que entrenaste el dia de hoy?\n";
-    		cout<<"                           1.Tren superior...\n";
-    		cout<<"                           2.Tren inferior...\n";
-    		cin>>opcionR;
-    		//submenu de diferentes entrenamientos
-    		switch(opcionR)
-    		{
-    			case 1: 
-    			string ejercicios[5];
-    			int series[4];
-    			double pesos[4];
-    			system("cls");
-    			cout<<"....................PERFECTO ESCOGISTE TREN SUPERIOR........................\n";
-	    		cout<<"Se estima que para tener un entrenamiento correcto se espera un maximo de 5 ejercicios por sesion\n";
-	    		cout<<"           Cada ejercicio debe consistir en 3 series de 8 a 12 repeticiones \n";
-	    		cout<<"           En las cuales debes incrementar el peso semana a semana, aproximadamente 2.5 kg...\n";
-	    		cout<<"           Esto te permitira tener un aumento de masa muscular y reduccion de grasa...\n"; 
-	    		cout<<"                                                                                             \n";                  
-				cout<<"           Sabiendo esto, cuentanos ¿Como estuvo tu entrenamiento?\n"; 
-				     
-	    		for(int i=0; i<1; i++)
-	    		{
-	    			cout<<"\n                        Ejercicio: \n";
-	    			cin>> ejercicios[i];
-	    			for (int j=0; j<2; j++)
-	    			{
-	    				cout<<"            Cuantas reps hiciste en tu serie #   "<<j+1<<" ?\n";
-	    				cin>>series[j];
-	    				for(int k=0; k<1;k++)
-	    				{
-	    					cout<<"         Cuanto peso cargaste en tu rep #   "<<k+1<<" ?\n";
-	    					//solo se necesita preguntar una vez 
-	    				    cin>>pesos[k];
+	int OP = 0;
+	float calorias_consumidas=0, calorias_necesarias;
+	
+	do
+	{
+		system("cls");
+		cout << "\n ********************** Menu Principal **************************\n";
+		cout << "                    1. Ingesta de calorias\n";
+		cout << "                    2. Quema de calorias\n";
+		cout << "                    3. Registro de rendimiento\n";
+		cout << "                    4. Calculos\n";
+		cout << "                    5. Salir\n ";
+		cin >> OP;
+		//utilizamos un switch con la finalidad de crear diferentes menus que sean amigables con el usuario 
+		switch (OP)
+		{
+		case 1: //Para la ingesta de calorias, pedimos datos al usuario para conocer las calorias que deben consumir y las que consumen
+			int opcionI, genero, anios, altura, prot, verd, gras, carb;
+			float peso;
+			do
+			{
+				system("cls");
+				cout << "------------------BIENVENIDO A TU REGISTRO DE INGESTA DE CALORIAS--------------------\n";
+				cout << "Primero, hay que conocer la cantidad de calorias que necesitas. Eres hombre o mujer?";
+				cout << "\n1. Hombre \n2. Mujer" << endl;
+				cin >> genero; //Preguntamos el genero porque dependiendo de eso es la formula usada para calcular las calorias, y usamos un switch para la opcion elegida
+				switch (genero)
+				{
+				case 1:
+					cout << "Para los hombres, la formula es la siguiente:\n 66 + (13.7 x peso corporal en kg) + (5 x altura en cm) - (6.75 x edad en anios)" << endl;
+					cout << "Ingresa tu peso corporal en kilogramos: ";
+					cin >> peso;
+					cout << "Ingresa tu altura en cm: ";
+					cin >> altura;
+					cout << "Ingresa tu edad en anios: ";
+					cin >> anios;
+					calorias_necesarias = 66 + (13.7 * peso) + (5 * altura) - (6.75 * anios); //Formula obtenida en internet
+					cout << "La cantidad de calorias que necesitas es: " << calorias_necesarias << endl;
+					system("pause");
+					break;
+				case 2:
+					cout << "Para las mujeres, la formula es la siguiente:\n 655 + (9.6 x peso corporal en kg) + (1.8 x altura en cm) - (4.7 x edad en anios)" << endl;
+					cout << "Ingresa tu peso corporal en kilogramos: ";
+					cin >> peso;
+					cout << "Ingresa tu altura en cm: ";
+					cin >> altura;
+					cout << "Ingresa tu edad en anios: ";
+					cin >> anios;
+					calorias_necesarias = 655 + (9.6 * peso) + (1.8 * altura) - (4.7 * anios); //Formula obtenida en internet
+					cout << "La cantidad de calorias que necesitas es: " << calorias_necesarias << endl;
+					system("pause");
+					break;
+				default:
+					cout << "Opcion no valida. Por favor intenta de nuevo." << endl;
+					system("pause");
+					break;
+				}
+			} while (genero!=1 && genero!=2);
+			
+			do
+			{ //Usamos un ciclo do while para que el usuario pueda ingresar las opciones varias veces
+				system("cls");
+				cout << "Ahora, veamos la cantidad de calorias que consumes. Ingresa cada opcion las veces necesarias." << endl;
+				cout << "1. Proteinas \n2. Frutas y Verduras \n3. Grasas \n4. Hidratos de carbono \n5. Salir" << endl; //Submenu para que el usuario elija el tipo de alimento
+				cin >> opcionI;
+				switch (opcionI)
+				{
+				case 1:
+					do
+					{   //Aqui, el usuario puede elegir las veces necesarias cada alimento por cada 100 gramos y se van sumando las calorias hasta que decida salir
+						system("cls");
+						cout << "1. Pollo (100 gramos = 239 calorias)" << endl;
+						cout << "2. Carne (100 gramos = 143 calorias)" << endl;
+						cout << "3. Pescado (100 gramos = 206 calorias)" << endl;
+						cout << "4. Lacteos (100 gramos = 46 calorias)" << endl;
+						cout << "5. Huevo (100 gramos = 155 calorias)" << endl;
+						cout << "6. Salir" << endl;
+						cin >> prot;
+						switch (prot)
+						{
+						case 1:
+							calorias_consumidas += 239;
+							break;
+						case 2:
+							calorias_consumidas += 143;
+							break;
+						case 3:
+							calorias_consumidas += 206;
+							break;
+						case 4:
+							calorias_consumidas += 46;
+							break;
+						case 5:
+							calorias_consumidas += 155;
+							break;
+						default:
+							break;
 						}
-					}		
+					} while (prot != 6);
+					break;
+				case 2:
+					do
+					{   //Aqui, el usuario puede elegir las veces necesarias cada alimento por cada 100 gramos y se van sumando las calorias hasta que decida salir
+						system("cls");
+						cout << "1. Espinacas (100 gramos = 23 calorias)" << endl;
+						cout << "2. Lechuga (100 gramos = 15 calorias)" << endl;
+						cout << "3. Manzana (100 gramos = 52 calorias)" << endl;
+						cout << "4. Platano (100 gramos = 89 calorias)" << endl;
+						cout << "5. Limon (100 gramos = 29 calorias)" << endl;
+						cout << "6. Salir" << endl;
+						cin >> verd;
+						switch (verd)
+						{
+						case 1:
+							calorias_consumidas += 23;
+							break;
+						case 2:
+							calorias_consumidas += 15;
+							break;
+						case 3:
+							calorias_consumidas += 52;
+							break;
+						case 4:
+							calorias_consumidas += 89;
+							break;
+						case 5:
+							calorias_consumidas += 29;
+							break;
+						default:
+							break;
+						}
+					} while (verd!=6);
+					break;
+				case 3: //Aqui, el usuario debe ingresar las grasas que consume en gramos y se hace el calculo en calorias
+					system("cls");
+					cout << "Que cantidad de grasas consumes en gramos? (1 gramo = 9 calorias): ";
+					cin >> gras;
+					calorias_consumidas += gras * 9;
+					break;
+				case 4: //Aqui, el usuario debe ingresar los carbohidratos que consume en gramos y se hace el calculo en calorias
+					system("cls");
+					cout << "Que cantidad de carbohidratos consumes en gramos? (1 gramo = 4 calorias): ";
+					cin >> carb;
+					calorias_consumidas += carb * 4;
+					break;
+				default:
+					break;
+				}
+			} while (opcionI!=5);
+			break;
+		case 2: break;
+		case 3:
+			int opcionR;
+			// submenu 3 
+			system("cls");
+			cout << "------------------BIENVENIDO A TU REGISTRO DE RENDIMIENTO--------------------\n";
+			cout << "                 Cuentanos, que entrenaste el dia de hoy?\n";
+			cout << "                           1.Tren superior...\n";
+			cout << "                           2.Tren inferior...\n";
+			cin >> opcionR;
+			//submenu de diferentes entrenamientos
+			switch (opcionR)
+			{
+			case 1:
+				string ejercicios[5];
+				int series[4];
+				double pesos[4];
+				system("cls");
+				cout << "....................PERFECTO ESCOGISTE TREN SUPERIOR........................\n";
+				cout << "Se estima que para tener un entrenamiento correcto se espera un maximo de 5 ejercicios por sesion\n";
+				cout << "           Cada ejercicio debe consistir en 3 series de 8 a 12 repeticiones \n";
+				cout << "           En las cuales debes incrementar el peso semana a semana, aproximadamente 2.5 kg...\n";
+				cout << "           Esto te permitira tener un aumento de masa muscular y reduccion de grasa...\n";
+				cout << "                                                                                             \n";
+				cout << "           Sabiendo esto, cuentanos ¿Como estuvo tu entrenamiento?\n";
+
+				for (int i = 0; i < 1; i++)
+				{
+					cout << "\n                        Ejercicio: \n";
+					cin >> ejercicios[i];
+					for (int j = 0; j < 2; j++)
+					{
+						cout << "            Cuantas reps hiciste en tu serie #   " << j + 1 << " ?\n";
+						cin >> series[j];
+						for (int k = 0; k < 1;k++)
+						{
+							cout << "         Cuanto peso cargaste en tu rep #   " << k + 1 << " ?\n";
+							//solo se necesita preguntar una vez 
+							cin >> pesos[k];
+						}
+					}
 				}
 				system("cls");
-				cout<<"....................TUS DATOS SON LOS SIGUIENTES..........................\n";
-				cout<<"\n............................EJERCICIOS..................................\n";
-				for (int g =0; g<5; g++)
+				cout << "....................TUS DATOS SON LOS SIGUIENTES..........................\n";
+				cout << "\n............................EJERCICIOS..................................\n";
+				for (int g = 0; g < 5; g++)
 				{
-					cout<<ejercicios[g]<<"\t";
+					cout << ejercicios[g] << "\t";
 				}
-				cout<<"\n....................REPETICIONES EN 4 SERIES ...........................\n";
-				for (int h =0; h<4; h++)
+				cout << "\n....................REPETICIONES EN 4 SERIES ...........................\n";
+				for (int h = 0; h < 4; h++)
 				{
-					cout<<series[h]<<"\t";
+					cout << series[h] << "\t";
 				}
-				cout<<"\n....................PESOS EN TUS REPETICIONES ..........................\n";
-				for (int l =0; l<4; l++)
+				cout << "\n....................PESOS EN TUS REPETICIONES ..........................\n";
+				for (int l = 0; l < 4; l++)
 				{
-					cout<<pesos[l]<<"kg"<<"\t";
+					cout << pesos[l] << "kg" << "\t";
 				}
-				
+
 				//system("PAUSE");
-    			break;
-    			
+				break;
+
 			}
-    		
-    		
-			break; 
-    		case 4: break;
+
+
+			break;
+		case 4: break;
 		}
-		
-	}while (OP!=5);
-    system("PAUSE");
+
+	} while (OP != 5);
+	system("PAUSE");
 	return 0;
 }
- 
+
