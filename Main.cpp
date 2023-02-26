@@ -333,7 +333,8 @@ int main()
 					cout << "Opcion no valida. Por favor intenta de nuevo." << endl;
 					system("pause");
 				break;
-			
+			}
+			break;
 		case 4: break;
 		}
 
