@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <string.h>
+#include <stdio.h>
 
 using namespace std;
 
@@ -8,6 +9,11 @@ int main()
 {
 	int OP = 0;
 	float calorias_consumidas=0, calorias_necesarias;
+	double producto[4];
+        int mayor, menor;
+        string ejercicios[1];
+	int series[4];
+        double pesos[4];
 	
 	do
 	{
@@ -158,71 +164,176 @@ int main()
 			break;
 		case 2: break;
 		case 3:
-			int opcionR;
-			// submenu 3 
-			system("cls");
-			cout << "------------------BIENVENIDO A TU REGISTRO DE RENDIMIENTO--------------------\n";
-			cout << "                 Cuentanos, que entrenaste el dia de hoy?\n";
-			cout << "                           1.Tren superior...\n";
-			cout << "                           2.Tren inferior...\n";
-			cin >> opcionR;
-			//submenu de diferentes entrenamientos
-			switch (opcionR)
-			{
-			case 1:
-				string ejercicios[5];
-				int series[4];
-				double pesos[4];
-				system("cls");
-				cout << "....................PERFECTO ESCOGISTE TREN SUPERIOR........................\n";
-				cout << "Se estima que para tener un entrenamiento correcto se espera un maximo de 5 ejercicios por sesion\n";
-				cout << "           Cada ejercicio debe consistir en 3 series de 8 a 12 repeticiones \n";
-				cout << "           En las cuales debes incrementar el peso semana a semana, aproximadamente 2.5 kg...\n";
-				cout << "           Esto te permitira tener un aumento de masa muscular y reduccion de grasa...\n";
-				cout << "                                                                                             \n";
-				cout << "           Sabiendo esto, cuentanos ¿Como estuvo tu entrenamiento?\n";
-
-				for (int i = 0; i < 1; i++)
-				{
-					cout << "\n                        Ejercicio: \n";
-					cin >> ejercicios[i];
-					for (int j = 0; j < 2; j++)
-					{
-						cout << "            Cuantas reps hiciste en tu serie #   " << j + 1 << " ?\n";
-						cin >> series[j];
-						for (int k = 0; k < 1;k++)
-						{
-							cout << "         Cuanto peso cargaste en tu rep #   " << k + 1 << " ?\n";
-							//solo se necesita preguntar una vez 
-							cin >> pesos[k];
-						}
-					}
+		int opcionR;
+    		// submenu 3 
+    		system("cls");
+    		cout<<"------------------BIENVENIDO A TU REGISTRO DE RENDIMIENTO--------------------\n";
+    		cout<<"                 Cuentanos, que entrenaste el dia de hoy?\n";
+    		cout<<"                           1.Tren superior...\n";
+    		cout<<"                           2.Tren inferior...\n";
+    		cin>>opcionR;
+    		//submenu de diferentes entrenamientos
+    		//utilizacion de switch para validaciones y un submenu 
+    		switch(opcionR)
+    		{
+    			case 1: 
+    			//declaracion de variables 
+    			
+    			//Imprimimos instrucciones para el usuario
+    			system("cls");
+    			cout<<"....................PERFECTO ESCOGISTE TREN SUPERIOR........................\n";
+	    		cout<<"Se estima que para tener un entrenamiento correcto se espera un maximo de 5 ejercicios por sesion\n";
+	    		cout<<"           Cada ejercicio debe consistir en 3 series de 8 a 12 repeticiones \n";
+	    		cout<<"           En las cuales debes incrementar el peso semana a semana, aproximadamente 2.5 kg...\n";
+	    		cout<<"           Esto te permitira tener un aumento de masa muscular y reduccion de grasa...\n"; 
+	    		cout<<"                                                                                             \n";                  
+				cout<<"           Sabiendo esto, cuentanos ¿Como estuvo tu entrenamiento?\n"; 
+				     
+	    		//Pedimos al usuario los datos y los guardamos en vestores
+				for(int i=0; i<1; i++)
+	    		{
+	    			cout<<"\n                        Ejercicio: \n";
+	    			cin>> ejercicios[i];
+	    			for (int j=0; j<4; j++)
+	    			{
+	    				cout<<"            Cuantas reps hiciste en tu serie #   "<<j+1<<" ?\n";
+	    				cin>>series[j];
+					}	
+					for(int k=0; k<4;k++)
+	    				{
+	    					cout<<"         Cuanto peso cargaste en tu rep #   "<<k+1<<" ?\n";
+	    					//solo se necesita preguntar una vez 
+	    				    cin>>pesos[k];
+						}	
 				}
 				system("cls");
-				cout << "....................TUS DATOS SON LOS SIGUIENTES..........................\n";
-				cout << "\n............................EJERCICIOS..................................\n";
-				for (int g = 0; g < 5; g++)
+				//Impresion de resultados utilizando fors
+				cout<<"....................TUS DATOS SON LOS SIGUIENTES..........................\n";
+				cout<<"\n............................EJERCICIOS..................................\n";
+				for (int g =0; g<5; g++)
 				{
-					cout << ejercicios[g] << "\t";
+					cout<<ejercicios[g]<<"\t";
 				}
-				cout << "\n....................REPETICIONES EN 4 SERIES ...........................\n";
-				for (int h = 0; h < 4; h++)
+				cout<<"\n....................REPETICIONES EN 4 SERIES ...........................\n";
+				for (int h =0; h<4; h++)
 				{
-					cout << series[h] << "\t";
+					cout<<series[h]<<"\t";
 				}
-				cout << "\n....................PESOS EN TUS REPETICIONES ..........................\n";
-				for (int l = 0; l < 4; l++)
+				cout<<"\n....................PESOS EN TUS REPETICIONES ..........................\n";
+				for (int l =0; l<4; l++)
 				{
-					cout << pesos[l] << "kg" << "\t";
+					cout<<pesos[l]<<"kg"<<"\t";
 				}
-
-				//system("PAUSE");
+				cout<<"\n";
+				cout<<"\n....................RENDIMIENTO.............. ..........................\n";
+				cout<<"     Se espera que para tu siguiente sesion logres cargar entre ...";
+				// creamos un for para recorrer el veector e imprimirlo 
+				for (int g =0; g<5; g++)
+				{
+					cout<<ejercicios[g]<<"\t";
+				}
+				cout<<"\n";
+				// creamos un for para multiplicar los valores de dciho por otros
+				for(int t=0; t<4;t++)
+				{
+					cout<<"\t";
+					producto[t]= pesos[t]+2.5;
+					cout<<producto[t]<<"Kg";
+				}
+				cout<<"     \n Tus mayores y menores cargas fueron ...\n";
+				//Recorremos el vector con un for, utilizamos un operador unario para encontrar el tamaño del operando
+				for (int w = 0; w < sizeof(pesos) / sizeof(pesos[0]); w++)
+				{
+					// utilizamos ifs para crear las condiciones de uso con base en el operador de tamaño
+					if (pesos[w] > mayor) mayor = pesos[w];
+				    //el valor en la posicion del vector es mayor o menor se guarda en la variable mayor o menor para despues pasar a la siguiente posisicion y actualizar el valor de la variable 
+					if (pesos[w] < menor) menor = pesos[w];
+				}
+				cout<<"\n el mayor peso fue de:  "<<mayor<<"\n"; 
+				cout<<"\n El menor peso fue de:  "<<menor<<"\n";
+    			break;
+    			
+    			case 2: 
+    			//Imprimimos instrucciones para el usuario
+    			system("cls");
+    			cout<<"....................PERFECTO ESCOGISTE TREN INFERIOR ........................\n";
+	    		cout<<"Se estima que para tener un entrenamiento correcto se espera un maximo de 5 ejercicios por sesion\n";
+	    		cout<<"           Cada ejercicio debe consistir en 3 series de 8 a 12 repeticiones \n";
+	    		cout<<"           En las cuales debes incrementar el peso semana a semana, aproximadamente 3.5 kg...\n";
+	    		cout<<"           Esto te permitira tener un aumento de masa muscular y reduccion de grasa...\n"; 
+	    		cout<<"                                                                                             \n";                  
+				cout<<"           Sabiendo esto, cuentanos ¿Como estuvo tu entrenamiento?\n"; 
+				     
+	    		//Pedimos al usuario los datos y los guardamos en vestores
+				for(int i=0; i<1; i++)
+	    		{
+	    			cout<<"\n                        Ejercicio: \n";
+	    			cin>> ejercicios[i];
+	    			for (int j=0; j<4; j++)
+	    			{
+	    				cout<<"            Cuantas reps hiciste en tu serie #   "<<j+1<<" ?\n";
+	    				cin>>series[j];
+					}	
+					for(int k=0; k<4;k++)
+	    				{
+	    					cout<<"         Cuanto peso cargaste en tu rep #   "<<k+1<<" ?\n";
+	    					//solo se necesita preguntar una vez 
+	    				    cin>>pesos[k];
+						}	
+				}
+				system("cls");
+				//Impresion de resultados utilizando fors
+				cout<<"....................TUS DATOS SON LOS SIGUIENTES..........................\n";
+				cout<<"\n............................EJERCICIOS..................................\n";
+				for (int g =0; g<5; g++)
+				{
+					cout<<ejercicios[g]<<"\t";
+				}
+				cout<<"\n....................REPETICIONES EN 4 SERIES ...........................\n";
+				for (int h =0; h<4; h++)
+				{
+					cout<<series[h]<<"\t";
+				}
+				cout<<"\n....................PESOS EN TUS REPETICIONES ..........................\n";
+				for (int l =0; l<4; l++)
+				{
+					cout<<pesos[l]<<"kg"<<"\t";
+				}
+				cout<<"\n";
+				cout<<"\n....................RENDIMIENTO.............. ..........................\n";
+				cout<<"     Se espera que para tu siguiente sesion logres cargar entre ...\n";
+				// creamos un for para recorrer el veector e imprimirlo 
+				for (int g =0; g<5; g++)
+				{
+					cout<<ejercicios[g]<<"\t";
+				}
+				cout<<"\n";
+				// creamos un for para multiplicar los valores de dciho por otros
+				for(int t=0; t<4;t++)
+				{
+					cout<<"\t";
+					producto[t]= pesos[t]+3.5;
+					cout<<producto[t]<<"Kg";
+				}
+				cout<<"     \n Tus mayores y menores cargas fueron ...\n";
+				//Recorremos el vector con un for, utilizamos un operador unario para encontrar el tamaño del operando
+				for (int w = 0; w < sizeof(pesos) / sizeof(pesos[0]); w++)
+				{
+					// utilizamos ifs para crear las condiciones de uso con base en el operador de tamaño
+					if (pesos[w] > mayor) mayor = pesos[w];
+				    //el valor en la posicion del vector es mayor o menor se guarda en la variable mayor o menor para despues pasar a la siguiente posisicion y actualizar el valor de la variable 
+					if (pesos[w] < menor) menor = pesos[w];
+				}
+				cout<<"\n el mayor peso fue de:  "<<mayor<<"\n"; 
+				cout<<"\n El menor peso fue de:  "<<menor<<"\n";
+    			
+    			break; 
+    			
+    			default:
+					cout << "Opcion no valida. Por favor intenta de nuevo." << endl;
+					system("pause");
 				break;
-
-			}
-
-
-			break;
+			
 		case 4: break;
 		}
 
