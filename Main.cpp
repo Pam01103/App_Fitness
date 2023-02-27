@@ -10,7 +10,7 @@ int main()
 	int OP = 0;
 	float calorias_consumidas = 0, calorias_necesarias;
 	double producto[4];
-	int mayor=0, menor=0;
+	int mayor = 0, menor = 0;
 	string ejercicios[1];
 	int series[4];
 	double pesos[4];
@@ -22,7 +22,7 @@ int main()
 		cout << "                    1. Ingesta de calorias\n";
 		cout << "                    2. Quema de calorias\n";
 		cout << "                    3. Registro de rendimiento\n";
-		//cout << "                    4. Calculos\n";
+		//cout << "                    4. Calculos\n"; //Se prevee cubrir esta opción una vez vistos más temas.
 		cout << "                    5. Salir\n ";
 		cin >> OP;
 		//utilizamos un switch con la finalidad de crear diferentes menus que sean amigables con el usuario 
@@ -199,7 +199,7 @@ int main()
 						cout << "            Cuantas reps hiciste en tu serie #   " << j + 1 << " ?\n";
 						cin >> series[j];
 					}
-					for (int k = 0; k < 4;k++)
+					for (int k = 0; k < 4; k++)
 					{
 						cout << "         Cuanto peso cargaste en tu rep #   " << k + 1 << " ?\n";
 						//solo se necesita preguntar una vez 
@@ -234,7 +234,7 @@ int main()
 				}
 				cout << "\n";
 				// creamos un for para multiplicar los valores de dciho por otros
-				for (int t = 0; t < 4;t++)
+				for (int t = 0; t < 4; t++)
 				{
 					cout << "\t";
 					producto[t] = pesos[t] + 2.5;
@@ -275,7 +275,7 @@ int main()
 						cout << "            Cuantas reps hiciste en tu serie #   " << j + 1 << " ?\n";
 						cin >> series[j];
 					}
-					for (int k = 0; k < 4;k++)
+					for (int k = 0; k < 4; k++)
 					{
 						cout << "         Cuanto peso cargaste en tu rep #   " << k + 1 << " ?\n";
 						//solo se necesita preguntar una vez 
@@ -310,7 +310,7 @@ int main()
 				}
 				cout << "\n";
 				// creamos un for para multiplicar los valores de dciho por otros
-				for (int t = 0; t < 4;t++)
+				for (int t = 0; t < 4; t++)
 				{
 					cout << "\t";
 					producto[t] = pesos[t] + 3.5;
@@ -335,8 +335,10 @@ int main()
 			}
 			break;
 		case 4:
+			cout << "Proximamente!!" << endl;
+			system("pause");
 			break;
-			
+
 		}
 	} while (OP != 5);
 	system("PAUSE");
