@@ -10,7 +10,7 @@ int main()
 	int OP = 0;
 	float calorias_consumidas = 0, calorias_necesarias;
 	double producto[4];
-	int mayor, menor;
+	int mayor=0, menor=0;
 	string ejercicios[1];
 	int series[4];
 	double pesos[4];
@@ -22,9 +22,8 @@ int main()
 		cout << "                    1. Ingesta de calorias\n";
 		cout << "                    2. Quema de calorias\n";
 		cout << "                    3. Registro de rendimiento\n";
-		cout << "                    4. Calculos\n";
-		cout << "                    5. Ingresar / cambiar perfil" << endl;
-		cout << "                    6. Salir\n ";
+		//cout << "                    4. Calculos\n";
+		cout << "                    5. Salir\n ";
 		cin >> OP;
 		//utilizamos un switch con la finalidad de crear diferentes menus que sean amigables con el usuario 
 		switch (OP)
@@ -186,7 +185,8 @@ int main()
 				cout << "Se estima que para tener un entrenamiento correcto se espera un maximo de 5 ejercicios por sesion\n";
 				cout << "           Cada ejercicio debe consistir en 3 series de 8 a 12 repeticiones \n";
 				cout << "           En las cuales debes incrementar el peso semana a semana, aproximadamente 2.5 kg...\n";
-				cout << "           Esto te permitira tener un aumento de masa muscular y reduccion de grasa...\n\n";
+				cout << "           Esto te permitira tener un aumento de masa muscular y reduccion de grasa...\n";
+				cout << "                                                                                             \n";
 				cout << "           Sabiendo esto, cuentanos ¿Como estuvo tu entrenamiento?\n";
 
 				//Pedimos al usuario los datos y los guardamos en vestores
@@ -199,7 +199,7 @@ int main()
 						cout << "            Cuantas reps hiciste en tu serie #   " << j + 1 << " ?\n";
 						cin >> series[j];
 					}
-					for (int k = 0; k < 4; k++)
+					for (int k = 0; k < 4;k++)
 					{
 						cout << "         Cuanto peso cargaste en tu rep #   " << k + 1 << " ?\n";
 						//solo se necesita preguntar una vez 
@@ -210,7 +210,7 @@ int main()
 				//Impresion de resultados utilizando fors
 				cout << "....................TUS DATOS SON LOS SIGUIENTES..........................\n";
 				cout << "\n............................EJERCICIOS..................................\n";
-				for (int g = 0; g < 5; g++)
+				for (int g = 0; g < 1; g++)
 				{
 					cout << ejercicios[g] << "\t";
 				}
@@ -228,13 +228,13 @@ int main()
 				cout << "\n....................RENDIMIENTO.............. ..........................\n";
 				cout << "     Se espera que para tu siguiente sesion logres cargar entre ...";
 				// creamos un for para recorrer el veector e imprimirlo 
-				for (int g = 0; g < 5; g++)
+				for (int g = 0; g < 1; g++)
 				{
 					cout << ejercicios[g] << "\t";
 				}
 				cout << "\n";
 				// creamos un for para multiplicar los valores de dciho por otros
-				for (int t = 0; t < 4; t++)
+				for (int t = 0; t < 4;t++)
 				{
 					cout << "\t";
 					producto[t] = pesos[t] + 2.5;
@@ -251,6 +251,7 @@ int main()
 				}
 				cout << "\n el mayor peso fue de:  " << mayor << "\n";
 				cout << "\n El menor peso fue de:  " << menor << "\n";
+				system("pause");
 				break;
 
 			case 2:
@@ -274,7 +275,7 @@ int main()
 						cout << "            Cuantas reps hiciste en tu serie #   " << j + 1 << " ?\n";
 						cin >> series[j];
 					}
-					for (int k = 0; k < 4; k++)
+					for (int k = 0; k < 4;k++)
 					{
 						cout << "         Cuanto peso cargaste en tu rep #   " << k + 1 << " ?\n";
 						//solo se necesita preguntar una vez 
@@ -285,7 +286,7 @@ int main()
 				//Impresion de resultados utilizando fors
 				cout << "....................TUS DATOS SON LOS SIGUIENTES..........................\n";
 				cout << "\n............................EJERCICIOS..................................\n";
-				for (int g = 0; g < 5; g++)
+				for (int g = 0; g < 1; g++)
 				{
 					cout << ejercicios[g] << "\t";
 				}
@@ -303,13 +304,13 @@ int main()
 				cout << "\n....................RENDIMIENTO.............. ..........................\n";
 				cout << "     Se espera que para tu siguiente sesion logres cargar entre ...\n";
 				// creamos un for para recorrer el veector e imprimirlo 
-				for (int g = 0; g < 5; g++)
+				for (int g = 0; g < 1; g++)
 				{
 					cout << ejercicios[g] << "\t";
 				}
 				cout << "\n";
 				// creamos un for para multiplicar los valores de dciho por otros
-				for (int t = 0; t < 4; t++)
+				for (int t = 0; t < 4;t++)
 				{
 					cout << "\t";
 					producto[t] = pesos[t] + 3.5;
@@ -326,22 +327,19 @@ int main()
 				}
 				cout << "\n el mayor peso fue de:  " << mayor << "\n";
 				cout << "\n El menor peso fue de:  " << menor << "\n";
-
+				system("pause");
 				break;
 
-			default:
-				cout << "Opcion no valida. Por favor intenta de nuevo." << endl;
-				system("pause");
+			default: cout << "Usted ha ingresado una opcion incorrecta";
 				break;
 			}
 			break;
-		case 4: break;
-		case 5: 
-
+		case 4:
 			break;
+			
 		}
-
-	} while (OP != 6);
+	} while (OP != 5);
 	system("PAUSE");
 	return 0;
 }
+
