@@ -390,5 +390,8 @@ int main()
 	} while (OP != 5);
 	system("PAUSE");
 	return 0;
+	system("cls");
+	cout << "Recuerda que para mantener un estilo de vida saludable la ingesta de calorias debe ser mayor a la quema de calorias en el gimnasio.\nConsulta a un especialista para obtener ayuda." << endl;
+	cout << "Gracias por usar el programa\n\n";
 }
 
