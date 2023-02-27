@@ -14,6 +14,8 @@ int main()
 	string ejercicios[1];
 	int series[4];
 	double pesos[4];
+	int contadorx = 0;
+	int opcionR = 0;
 
 	do
 	{
@@ -22,7 +24,7 @@ int main()
 		cout << "                    1. Ingesta de calorias\n";
 		cout << "                    2. Quema de calorias\n";
 		cout << "                    3. Registro de rendimiento\n";
-		//cout << "                    4. Calculos\n"; //Se prevee cubrir esta opción una vez vistos más temas.
+		//cout << "                    4. Calculos\n"; //Se prevee cubrir esta opcion una vez vistos más temas.
 		cout << "                    5. Salir\n ";
 		cin >> OP;
 		//utilizamos un switch con la finalidad de crear diferentes menus que sean amigables con el usuario 
@@ -37,7 +39,7 @@ int main()
 				cout << "------------------BIENVENIDO A TU REGISTRO DE INGESTA DE CALORIAS--------------------\n";
 				cout << "Primero, hay que conocer la cantidad de calorias que necesitas. Eres hombre o mujer?";
 				cout << "\n1. Hombre \n2. Mujer" << endl;
-				cin >> genero; //Preguntamos el genero porque dependiendo de eso es la formula usada para calcular las calorias, y usamos un switch para la opcion elegida
+				cin >> genero; //Preguntamos el genero, y usamos un switch para la opcion elegida
 				switch (genero)
 				{
 				case 1:
@@ -162,9 +164,53 @@ int main()
 				}
 			} while (opcionI != 5);
 			break;
-		case 2: break;
+		case 2:
+
+			if (contadorx != 0) //Se usa este condicional para evitar que se registren quemas de calorias sin ejercicio previo
+			{
+				system("cls");
+				float horas, minutos;
+				//	De acuerdo a nuestra investigacion, establecimos una relacion para aproximar las calorias quemadas por minuto y hora
+				cout << "\t\tQuema de Calorias" << endl;
+				cout << "Por cuanto tiempo ejercitaste?\nHoras: ";
+				cin >> horas;
+				cout << "\tMinutos: ";
+				cin >> minutos;
+				switch (opcionR) //Se usa la opcion ingresada anteriormente en registro de entrenamiento
+				{
+				case 1:
+					cout << "\n\nTren superior" << endl;
+					cout << "\nEn una sesion de entrenamiento de 30 minutos se queman alrededor de 30 calorias." << endl;
+					float quemadas = 5 * minutos + 300 * horas;
+					//Se hace el calculo aproximado de calorias quemadas.
+					cout << "Has quemado aproximadamente " << quemadas << " calorias" << endl;
+					cout << "Recuerda que la quema de calorias puede variar de acuerdo a tu peso, edad y tiempo efectivo de ejercicio por sesion." << endl;
+					break;
+				case 2:
+					cout << "\nTren inferior" << endl;
+					cout << "\nIncluyendo superseries y ejercicios compuestos, puedes llegar a quemar entre 350 y 700 calorias en una sesion de una hora." << endl;
+					float quemadas = 8 * minutos + 525 * horas;
+					//Se hace el calculo aproximado de calorias quemadas.
+					cout << "Has quemado aproximadamente " << quemadas << " calorias" << endl;
+					cout << "Dependiendo de tu peso y de la intensidad del ejercicio, puedes llegar a quemar muchas calorias en un entrenamiento de piernas. ";
+					break;
+				default:
+					cout << "Opcion no valida!" << endl;
+					system("pause");
+					break;
+				}
+
+
+			}
+			else {
+				cout << "\n\t\tQuema de Calorias" << endl;
+				cout << "Primero accede a la opcion 3 del menu." << endl;
+				system("pause");
+			}
+
+			break;
 		case 3:
-			int opcionR;
+			contadorx++;
 			// submenu 3 
 			system("cls");
 			cout << "------------------BIENVENIDO A TU REGISTRO DE RENDIMIENTO--------------------\n";
@@ -186,6 +232,7 @@ int main()
 				cout << "           Cada ejercicio debe consistir en 3 series de 8 a 12 repeticiones \n";
 				cout << "           En las cuales debes incrementar el peso semana a semana, aproximadamente 2.5 kg...\n";
 				cout << "           Esto te permitira tener un aumento de masa muscular y reduccion de grasa...\n";
+				cout << "Se recomienda que cuando estemos haciendo pesas procuremos que el corazon este por encima de los 90 latidos,\nDe esta manera la quema de calorias sera optima";
 				cout << "                                                                                             \n";
 				cout << "           Sabiendo esto, cuentanos ¿Como estuvo tu entrenamiento?\n";
 
