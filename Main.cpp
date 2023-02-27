@@ -169,29 +169,31 @@ int main()
 			if (contadorx != 0) //Se usa este condicional para evitar que se registren quemas de calorias sin ejercicio previo
 			{
 				system("cls");
-				float horas, minutos;
+				// Una vez sepamos usar matrices de diferentes tipos de variables, organizaremos mejor la sig matriz:
+				float calculo_cal[3][2] = { {1,0},{2,0},{3,0} };
+				string calculos[3] = { "horas", "minutos", "calorias quemadas" };
 				//	De acuerdo a nuestra investigacion, establecimos una relacion para aproximar las calorias quemadas por minuto y hora
 				cout << "\t\tQuema de Calorias" << endl;
-				cout << "Por cuanto tiempo ejercitaste?\nHoras: ";
-				cin >> horas;
-				cout << "\tMinutos: ";
-				cin >> minutos;
+				cout << "Por cuanto tiempo ejercitaste?\n1. Horas: ";
+				cin >> calculo_cal[0][1];
+				cout << "\t2. Minutos: ";
+				cin >> calculo_cal[1][1];
 				switch (opcionR) //Se usa la opcion ingresada anteriormente en registro de entrenamiento
 				{
 				case 1:
 					cout << "\n\nTren superior" << endl;
 					cout << "\nEn una sesion de entrenamiento de 30 minutos se queman alrededor de 30 calorias." << endl;
-					float quemadas = 5 * minutos + 300 * horas;
+					calculo_cal[2][1] = 5 * calculo_cal[1][1] + 300 * calculo_cal[0][1];
 					//Se hace el calculo aproximado de calorias quemadas.
-					cout << "Has quemado aproximadamente " << quemadas << " calorias" << endl;
+					cout << "Has quemado aproximadamente " << calculo_cal[2][1] << " calorias" << endl;
 					cout << "Recuerda que la quema de calorias puede variar de acuerdo a tu peso, edad y tiempo efectivo de ejercicio por sesion." << endl;
 					break;
 				case 2:
 					cout << "\nTren inferior" << endl;
 					cout << "\nIncluyendo superseries y ejercicios compuestos, puedes llegar a quemar entre 350 y 700 calorias en una sesion de una hora." << endl;
-					float quemadas = 8 * minutos + 525 * horas;
+					calculo_cal[2][1] = 8 * calculo_cal[1][1] + 525 * calculo_cal[0][1];
 					//Se hace el calculo aproximado de calorias quemadas.
-					cout << "Has quemado aproximadamente " << quemadas << " calorias" << endl;
+					cout << "Has quemado aproximadamente " << calculo_cal[2][1] << " calorias" << endl;
 					cout << "Dependiendo de tu peso y de la intensidad del ejercicio, puedes llegar a quemar muchas calorias en un entrenamiento de piernas. ";
 					break;
 				default:
