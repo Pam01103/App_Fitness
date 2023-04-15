@@ -6,6 +6,7 @@
 using namespace std;
 
 void ingesta_calorias();
+void validacion_ingesta(bool&, string, string, string);
 void quema_calorias();
 void registro_rendimiento();
 
@@ -66,140 +67,305 @@ int main()
 	cout << "Gracias por usar el programa\n\n";
 }
 
+double peso, altura, anios;
 void ingesta_calorias()
 {
-	int opcionI, genero, anios, altura, prot, verd, gras, carb;
-	float calorias_consumidas = 0, calorias_necesarias, peso;
+	float calorias_consumidas = 0, calorias_necesarias;
+	char genero = ' ', opcionI, prot, verd, gras, carb;
+	string in, in_peso, in_altura, in_anios, in_prot, in_verd, in_gras, in_carb;
+	bool valido;
 	do
 	{
 		system("cls");
 		cout << "------------------BIENVENIDO A TU REGISTRO DE INGESTA DE CALORIAS--------------------\n";
 		cout << "Primero, hay que conocer la cantidad de calorias que necesitas. Eres hombre o mujer?";
 		cout << "\n1. Hombre \n2. Mujer" << endl;
-		cin >> genero; //Preguntamos el genero, y usamos un switch para la opcion elegida
-		switch (genero)
+		cin >> in; //Preguntamos el genero, y usamos un switch para la opcion elegida
+		if (in.length() == 1)
 		{
-		case 1:
-			cout << "Para los hombres, la formula es la siguiente:\n 66 + (13.7 x peso corporal en kg) + (5 x altura en cm) - (6.75 x edad en anios)" << endl;
-			cout << "Ingresa tu peso corporal en kilogramos: ";
-			cin >> peso;
-			cout << "Ingresa tu altura en cm: ";
-			cin >> altura;
-			cout << "Ingresa tu edad en anios: ";
-			cin >> anios;
-			calorias_necesarias = 66 + (13.7 * peso) + (5 * altura) - (6.75 * anios); //Formula obtenida en internet
-			cout << "La cantidad de calorias que necesitas es: " << calorias_necesarias << endl;
-			system("pause");
-			break;
-		case 2:
-			cout << "Para las mujeres, la formula es la siguiente:\n 655 + (9.6 x peso corporal en kg) + (1.8 x altura en cm) - (4.7 x edad en anios)" << endl;
-			cout << "Ingresa tu peso corporal en kilogramos: ";
-			cin >> peso;
-			cout << "Ingresa tu altura en cm: ";
-			cin >> altura;
-			cout << "Ingresa tu edad en anios: ";
-			cin >> anios;
-			calorias_necesarias = 655 + (9.6 * peso) + (1.8 * altura) - (4.7 * anios); //Formula obtenida en internet
-			cout << "La cantidad de calorias que necesitas es: " << calorias_necesarias << endl;
-			system("pause");
-			break;
-		default:
+			genero = in[0];
+			switch (genero)
+			{
+			case '1':
+				do
+				{
+					valido = true;
+					system("cls");
+					cout << "Para los hombres, la formula es la siguiente:\n 66 + (13.7 x peso corporal en kg) + (5 x altura en cm) - (6.75 x edad en anios)" << endl;
+					cout << "Ingresa tu peso corporal en kilogramos: ";
+					cin >> in_peso;
+					cout << "Ingresa tu altura en cm: ";
+					cin >> in_altura;
+					cout << "Ingresa tu edad en anios: ";
+					cin >> in_anios;
+					validacion_ingesta(valido, in_peso, in_altura, in_anios);
+				} while (!valido);
+
+				calorias_necesarias = 66 + (13.7 * peso) + (5 * altura) - (6.75 * anios); //Formula obtenida en internet
+				cout << "La cantidad de calorias que necesitas es: " << calorias_necesarias << endl;
+				system("pause");
+				break;
+			case '2':
+				do
+				{
+					valido = true;
+					system("cls");
+					cout << "Para las mujeres, la formula es la siguiente:\n 655 + (9.6 x peso corporal en kg) + (1.8 x altura en cm) - (4.7 x edad en anios)" << endl;
+					cout << "Ingresa tu peso corporal en kilogramos: ";
+					cin >> in_peso;
+					cout << "Ingresa tu altura en cm: ";
+					cin >> in_altura;
+					cout << "Ingresa tu edad en anios: ";
+					cin >> in_anios;
+					validacion_ingesta(valido, in_peso, in_altura, in_anios);
+				} while (!valido);
+				
+				calorias_necesarias = 655 + (9.6 * peso) + (1.8 * altura) - (4.7 * anios); //Formula obtenida en internet
+				cout << "La cantidad de calorias que necesitas es: " << calorias_necesarias << endl;
+				system("pause");
+				break;
+			default:
+				cout << "Opcion no valida. Por favor intenta de nuevo." << endl;
+				system("pause");
+				break;
+			}
+		}
+		else
+		{
 			cout << "Opcion no valida. Por favor intenta de nuevo." << endl;
 			system("pause");
-			break;
 		}
-	} while (genero != 1 && genero != 2);
+		
+	} while (genero != '1' && genero != '2');
 
 	do
 	{ //Usamos un ciclo do while para que el usuario pueda ingresar las opciones varias veces
 		system("cls");
 		cout << "Ahora, veamos la cantidad de calorias que consumes. Ingresa cada opcion las veces necesarias." << endl;
 		cout << "1. Proteinas \n2. Frutas y Verduras \n3. Grasas \n4. Hidratos de carbono \n5. Salir" << endl; //Submenu para que el usuario elija el tipo de alimento
-		cin >> opcionI;
-		switch (opcionI)
+		cout << "Cantidad acumulada: " << calorias_consumidas << endl;
+		cout << "Opcion: ";
+		cin >> in;
+		if (in.length() == 1)
 		{
-		case 1:
-			do
-			{   //Aqui, el usuario puede elegir las veces necesarias cada alimento por cada 100 gramos y se van sumando las calorias hasta que decida salir
+			opcionI = in[0];
+			switch (opcionI)
+			{
+			case '1':
+				do
+				{   //Aqui, el usuario puede elegir las veces necesarias cada alimento por cada 100 gramos y se van sumando las calorias hasta que decida salir
+					system("cls");
+					cout << "1. Pollo (100 gramos = 239 calorias)" << endl;
+					cout << "2. Carne (100 gramos = 143 calorias)" << endl;
+					cout << "3. Pescado (100 gramos = 206 calorias)" << endl;
+					cout << "4. Lacteos (100 gramos = 46 calorias)" << endl;
+					cout << "5. Huevo (100 gramos = 155 calorias)" << endl;
+					cout << "6. Salir" << endl;
+					cin >> in_prot;
+					if (in.length() == 1)
+					{
+						prot = in_prot[0];
+						switch (prot)
+						{
+						case '1':
+							calorias_consumidas += 239;
+							cout << "Cantidad agregada." << endl; system("pause");
+							break;
+						case '2':
+							calorias_consumidas += 143;
+							cout << "Cantidad agregada." << endl; system("pause");
+							break;
+						case '3':
+							calorias_consumidas += 206;
+							cout << "Cantidad agregada." << endl; system("pause");
+							break;
+						case '4':
+							calorias_consumidas += 46;
+							cout << "Cantidad agregada." << endl; system("pause");
+							break;
+						case '5':
+							calorias_consumidas += 155;
+							cout << "Cantidad agregada." << endl; system("pause");
+							break;
+						case '6':
+							break;
+						default:
+							cout << "Opcion no valida. Por favor intenta de nuevo." << endl;
+							system("pause");
+							break;
+						}
+					}
+					else
+					{
+						cout << "Opcion no valida. Por favor intenta de nuevo." << endl;
+						system("pause");
+					}
+				} while (prot != '6');
+				break;
+			case '2':
+				do
+				{   //Aqui, el usuario puede elegir las veces necesarias cada alimento por cada 100 gramos y se van sumando las calorias hasta que decida salir
+					system("cls");
+					cout << "1. Espinacas (100 gramos = 23 calorias)" << endl;
+					cout << "2. Lechuga (100 gramos = 15 calorias)" << endl;
+					cout << "3. Manzana (100 gramos = 52 calorias)" << endl;
+					cout << "4. Platano (100 gramos = 89 calorias)" << endl;
+					cout << "5. Limon (100 gramos = 29 calorias)" << endl;
+					cout << "6. Salir" << endl;
+					cin >> in_verd;
+					if (in_verd.length() == 1)
+					{
+						verd = in_verd[0];
+						switch (verd)
+						{
+						case '1':
+							calorias_consumidas += 23;
+							cout << "Cantidad agregada." << endl; system("pause");
+							break;
+						case '2':
+							calorias_consumidas += 15;
+							cout << "Cantidad agregada." << endl; system("pause");
+							break;
+						case '3':
+							calorias_consumidas += 52;
+							cout << "Cantidad agregada." << endl; system("pause");
+							break;
+						case '4':
+							calorias_consumidas += 89;
+							cout << "Cantidad agregada." << endl; system("pause");
+							break;
+						case '5':
+							calorias_consumidas += 29;
+							cout << "Cantidad agregada." << endl; system("pause");
+							break;
+						case '6':
+							break;
+						default:
+							cout << "Opcion no valida. Por favor intenta de nuevo." << endl;
+							system("pause");
+							break;
+						}
+					}
+				} while (verd != '6');
+				break;
+			case '3': //Aqui, el usuario debe ingresar las grasas que consume en gramos y se hace el calculo en calorias
 				system("cls");
-				cout << "1. Pollo (100 gramos = 239 calorias)" << endl;
-				cout << "2. Carne (100 gramos = 143 calorias)" << endl;
-				cout << "3. Pescado (100 gramos = 206 calorias)" << endl;
-				cout << "4. Lacteos (100 gramos = 46 calorias)" << endl;
-				cout << "5. Huevo (100 gramos = 155 calorias)" << endl;
-				cout << "6. Salir" << endl;
-				cin >> prot;
-				switch (prot)
+				cout << "Que cantidad de grasas consumes en gramos? (1 gramo = 9 calorias): ";
+				cin >> in_gras;
+				valido = true;
+				for (int i = 0; i < in_gras.length(); i++)
 				{
-				case 1:
-					calorias_consumidas += 239;
-					break;
-				case 2:
-					calorias_consumidas += 143;
-					break;
-				case 3:
-					calorias_consumidas += 206;
-					break;
-				case 4:
-					calorias_consumidas += 46;
-					break;
-				case 5:
-					calorias_consumidas += 155;
-					break;
-				default:
-					break;
+					if (!isdigit(in_gras[i]))
+					{
+						valido = false;
+					}
 				}
-			} while (prot != 6);
-			break;
-		case 2:
-			do
-			{   //Aqui, el usuario puede elegir las veces necesarias cada alimento por cada 100 gramos y se van sumando las calorias hasta que decida salir
+				if (valido)
+				{
+					gras = stoi(in_gras);
+					if (gras < 0)
+					{
+						valido = false;
+					}
+				}
+				if (!valido)
+				{
+					cout << "Cantidad no valida. Por favor vuelve a intentar." << endl; system("pause");
+				}
+				else
+				{
+					calorias_consumidas += gras * 9;
+					cout << "Cantidad agregada." << endl; system("pause");
+				}
+				
+				break;
+			case '4': //Aqui, el usuario debe ingresar los carbohidratos que consume en gramos y se hace el calculo en calorias
 				system("cls");
-				cout << "1. Espinacas (100 gramos = 23 calorias)" << endl;
-				cout << "2. Lechuga (100 gramos = 15 calorias)" << endl;
-				cout << "3. Manzana (100 gramos = 52 calorias)" << endl;
-				cout << "4. Platano (100 gramos = 89 calorias)" << endl;
-				cout << "5. Limon (100 gramos = 29 calorias)" << endl;
-				cout << "6. Salir" << endl;
-				cin >> verd;
-				switch (verd)
+				cout << "Que cantidad de carbohidratos consumes en gramos? (1 gramo = 4 calorias): ";
+				cin >> in_carb;
+				valido = true;
+				for (int i = 0; i < in_carb.length(); i++)
 				{
-				case 1:
-					calorias_consumidas += 23;
-					break;
-				case 2:
-					calorias_consumidas += 15;
-					break;
-				case 3:
-					calorias_consumidas += 52;
-					break;
-				case 4:
-					calorias_consumidas += 89;
-					break;
-				case 5:
-					calorias_consumidas += 29;
-					break;
-				default:
-					break;
+					if (!isdigit(in_carb[i]))
+					{
+						valido = false;
+					}
 				}
-			} while (verd != 6);
-			break;
-		case 3: //Aqui, el usuario debe ingresar las grasas que consume en gramos y se hace el calculo en calorias
-			system("cls");
-			cout << "Que cantidad de grasas consumes en gramos? (1 gramo = 9 calorias): ";
-			cin >> gras;
-			calorias_consumidas += gras * 9;
-			break;
-		case 4: //Aqui, el usuario debe ingresar los carbohidratos que consume en gramos y se hace el calculo en calorias
-			system("cls");
-			cout << "Que cantidad de carbohidratos consumes en gramos? (1 gramo = 4 calorias): ";
-			cin >> carb;
-			calorias_consumidas += carb * 4;
-			break;
-		default:
-			break;
+				if (valido)
+				{
+					carb = stoi(in_carb);
+					if (carb < 0)
+					{
+						valido = false;
+					}
+				}
+				if (!valido)
+				{
+					cout << "Cantidad no valida. Por favor vuelve a intentar." << endl; system("pause");
+				}
+				else
+				{
+					calorias_consumidas += carb * 4;
+					cout << "Cantidad agregada." << endl; system("pause");
+				}
+				
+				break;
+			case '5':
+				break;
+			default:
+				cout << "Opcion no valida. Por favor intenta de nuevo." << endl;
+				system("pause");
+				break;
+			}
 		}
-	} while (opcionI != 5);
+		else
+		{
+			cout << "Opcion no valida. Por favor intenta de nuevo." << endl;
+			system("pause");
+		}
+		
+	} while (opcionI != '5');
+}
+
+void validacion_ingesta(bool &valido, string in_peso, string in_altura, string in_anios)
+{
+	
+	for (int i = 0; i < in_peso.length(); i++)
+	{
+		if (!isdigit(in_peso[i]) && in_peso[i] != '.')
+		{
+			valido = false;
+		}
+	}
+	for (int i = 0; i < in_altura.length(); i++)
+	{
+		if (!isdigit(in_altura[i]) && in_altura[i] != '.')
+		{
+			valido = false;
+		}
+	}
+	for (int i = 0; i < in_anios.length(); i++)
+	{
+		if (!isdigit(in_anios[i]) && in_anios[i] != '.')
+		{
+			valido = false;
+		}
+	}
+	if (valido)
+	{
+		peso = stod(in_peso);
+		altura = stod(in_altura);
+		anios = stod(in_anios);
+		if (peso < 0 || altura < 0 || anios < 0)
+		{
+			valido = false;
+		}
+	}
+	if (!valido)
+	{
+		cout << "Uno de los datos que ingresaste es invalido. Por favor vuelve a ingresar tus datos." << endl;
+		system("pause");
+	}
 }
 
 void quema_calorias()
