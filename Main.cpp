@@ -6,22 +6,31 @@
 using namespace std;
 
 struct usuario {
-    double peso;
-    double altura;
-    double años;
+	double peso;
+	double altura;
+	double años;
+	double calorias;
+};
+
+struct tiempo {
+	double horas;
+	double minutos;
 };
 
 void ingesta_calorias();
 void validacion_ingesta(bool&, string, string, string);
+void validacion_quema(bool&, string, string);
+
 void quema_calorias();
 void registro_rendimiento();
 
 int contadorx = 0;
 int opcionR;
 usuario datos;
+tiempo tiempo_entr;
 int main()
 {
-	char OP=0;
+	char OP = 0;
 	string input;
 	do
 	{
@@ -65,7 +74,7 @@ int main()
 			cout << "Opcion no valida, por favor ingrese otra opcion." << endl;
 			system("pause");
 		}
-			
+
 	} while (OP != '5');
 	system("PAUSE");
 	return 0;
@@ -126,7 +135,7 @@ void ingesta_calorias()
 					cin >> in_anios;
 					validacion_ingesta(valido, in_peso, in_altura, in_anios);
 				} while (!valido);
-				
+
 				calorias_necesarias = 655 + (9.6 * peso) + (1.8 * altura) - (4.7 * anios); //Formula obtenida en internet
 				cout << "La cantidad de calorias que necesitas es: " << calorias_necesarias << endl;
 				system("pause");
@@ -142,7 +151,7 @@ void ingesta_calorias()
 			cout << "Opcion no valida. Por favor intenta de nuevo." << endl;
 			system("pause");
 		}
-		
+
 	} while (genero != '1' && genero != '2');
 
 	do
@@ -284,7 +293,7 @@ void ingesta_calorias()
 					calorias_consumidas += gras * 9;
 					cout << "Cantidad agregada." << endl; system("pause");
 				}
-				
+
 				break;
 			case '4': //Aqui, el usuario debe ingresar los carbohidratos que consume en gramos y se hace el calculo en calorias
 				system("cls");
@@ -315,7 +324,7 @@ void ingesta_calorias()
 					calorias_consumidas += carb * 4;
 					cout << "Cantidad agregada." << endl; system("pause");
 				}
-				
+
 				break;
 			case '5':
 				break;
@@ -330,13 +339,13 @@ void ingesta_calorias()
 			cout << "Opcion no valida. Por favor intenta de nuevo." << endl;
 			system("pause");
 		}
-		
+
 	} while (opcionI != '5');
 }
 
-void validacion_ingesta(bool &valido, string in_peso, string in_altura, string in_anios)
+void validacion_ingesta(bool& valido, string in_peso, string in_altura, string in_anios)
 {
-	
+
 	for (int i = 0; i < in_peso.length(); i++)
 	{
 		if (!isdigit(in_peso[i]) && in_peso[i] != '.')
@@ -368,9 +377,9 @@ void validacion_ingesta(bool &valido, string in_peso, string in_altura, string i
 			valido = false;
 		}
 		else
-		{			
-			usuario temp = { peso, altura, anios};
-			datos = temp; 
+		{
+			usuario temp = { peso, altura, anios };
+			datos = temp;
 		}
 	}
 	if (!valido)
@@ -383,50 +392,59 @@ void validacion_ingesta(bool &valido, string in_peso, string in_altura, string i
 void quema_calorias()
 {
 	if (contadorx != 0) //Se usa este condicional para evitar que se registren quemas de calorias sin ejercicio previo
-			{
-				system("cls");
-				// Una vez sepamos usar matrices de diferentes tipos de variables, organizaremos mejor la sig matriz:
-				float calculo_cal[3][2] = { {1,0},{2,0},{3,0} };
-				string calculos[3] = { "horas", "minutos", "calorias quemadas" };
-				//	De acuerdo a nuestra investigacion, establecimos una relacion para aproximar las calorias quemadas por minuto y hora
-				cout << "\t\tQuema de Calorias" << endl;
-				cout << "Por cuanto tiempo ejercitaste?\n1. Horas: ";
-				cin >> calculo_cal[0][1];
-				cout << "\t2. Minutos: ";
-				cin >> calculo_cal[1][1];
-				switch (opcionR) //Se usa la opcion ingresada anteriormente en registro de entrenamiento
-				{
-				case 1:
-					cout << "\n\nTren superior" << endl;
-					cout << "\nEn una sesion de entrenamiento de 30 minutos se queman alrededor de 30 calorias." << endl;
-					calculo_cal[2][1] = 5 * calculo_cal[1][1] + 300 * calculo_cal[0][1];
-					//Se hace el calculo aproximado de calorias quemadas.
-					cout << "Has quemado aproximadamente " << calculo_cal[2][1] << " calorias" << endl;
-					cout << "Recuerda que la quema de calorias puede variar de acuerdo a tu peso, edad y tiempo efectivo de ejercicio por sesion." << endl;
-					system("pause");
-					break;
-				case 2:
-					cout << "\nTren inferior" << endl;
-					cout << "\nIncluyendo superseries y ejercicios compuestos, puedes llegar a quemar entre 350 y 700 calorias en una sesion de una hora." << endl;
-					calculo_cal[2][1] = 8 * calculo_cal[1][1] + 525 * calculo_cal[0][1];
-					//Se hace el calculo aproximado de calorias quemadas.
-					cout << "Has quemado aproximadamente " << calculo_cal[2][1] << " calorias" << endl;
-					cout << "Dependiendo de tu peso y de la intensidad del ejercicio, puedes llegar a quemar muchas calorias en un entrenamiento de piernas. ";
-					system("pause");
-					break;
-				default:
-					cout << "Opcion no valida!" << endl;
-					system("pause");
-					break;
-				}
+	{
+		system("cls");
+		
+		string calculo_cal[3][2] = { {"1","0"},{"2","0"},{"3","0"} };
+		string calculos[3] = { "horas", "minutos", "calorias quemadas" };
+		//	De acuerdo a nuestra investigacion, establecimos una relacion para aproximar las calorias quemadas por minuto y hora
+		cout << "\t\tQuema de Calorias" << endl;
+		bool valido2;
+		do
+		{
+			valido2 = true;
+			cout << "Por cuanto tiempo ejercitaste?\n1. Horas: ";
+			cin >> calculo_cal[0][1];
+			cout << "2. Minutos: ";
+			cin >> calculo_cal[1][1];
+			validacion_quema(valido2, calculo_cal[0][1], calculo_cal[1][1]);
+			system("cls");
+
+		} while (!valido2);
+
+		switch (opcionR) //Se usa la opcion ingresada anteriormente en registro de entrenamiento
+		{
+		case 1:
+			cout << "----> Tren superior <----" << endl;
+			cout << "\nEn una sesion de entrenamiento de 30 minutos se queman alrededor de 30 calorias." << endl;
+			datos.calorias = 5 * tiempo_entr.minutos + 300 * tiempo_entr.horas;
+			//Se hace el calculo aproximado de calorias quemadas.
+			cout << "Has quemado aproximadamente " << datos.calorias << " calorias" << endl;
+			cout << "Recuerda que la quema de calorias puede variar de acuerdo a tu peso, edad y tiempo efectivo de ejercicio por sesion." << endl;
+			system("pause");
+			break;
+		case 2:
+			cout << "\nTren inferior" << endl;
+			cout << "\nIncluyendo superseries y ejercicios compuestos, puedes llegar a quemar entre 350 y 700 calorias en una sesion de una hora." << endl;
+			datos.calorias = 8 * tiempo_entr.minutos + 525 * tiempo_entr.horas;
+			//Se hace el calculo aproximado de calorias quemadas.
+			cout << "Has quemado aproximadamente " << datos.calorias << " calorias" << endl;
+			cout << "Dependiendo de tu peso y de la intensidad del ejercicio, puedes llegar a quemar muchas calorias en un entrenamiento de piernas. ";
+			system("pause");
+			break;
+		default:
+			cout << "Opcion no valida!" << endl;
+			system("pause");
+			break;
+		}
 
 
-			}
-			else {
-				cout << "\n\t\tQuema de Calorias" << endl;
-				cout << "Primero accede a la opcion 3 del menu." << endl;
-				system("pause");
-			}
+	}
+	else {
+		cout << "\n\t\tQuema de Calorias" << endl;
+		cout << "Primero accede a la opcion 3 del menu." << endl;
+		system("pause");
+	}
 }
 
 void registro_rendimiento()
@@ -605,5 +623,47 @@ void registro_rendimiento()
 
 	default: cout << "Usted ha ingresado una opcion incorrecta";
 		break;
+	}
+}
+
+
+
+
+
+void validacion_quema(bool& valido, string in_horas, string in_minutos)
+{
+
+	for (int i = 0; i < in_horas.length(); i++)
+	{
+		if (!isdigit(in_horas[i]) && in_horas[i] != '.')
+		{
+			valido = false;
+		}
+	}
+	for (int i = 0; i < in_minutos.length(); i++)
+	{
+		if (!isdigit(in_minutos[i]) && in_minutos[i] != '.')
+		{
+			valido = false;
+		}
+	}
+	if (valido)
+	{
+		double horas = stod(in_horas);
+		double minutos = stod(in_minutos);
+		if (horas < 0 || minutos < 0)
+		{
+			valido = false;
+		}
+		else
+		{
+			tiempo temp = { horas, minutos };
+			tiempo_entr = temp;
+		}
+	}
+	if (!valido)
+	{
+		cout << "Uno de los datos que ingresaste es invalido. Por favor vuelve a ingresar tus datos." << endl;
+		system("pause");
 	}
 }
