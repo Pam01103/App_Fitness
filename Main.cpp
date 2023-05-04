@@ -8,7 +8,7 @@ using namespace std;
 struct usuario {
 	double peso;
 	double altura;
-	double años;
+	double anios;
 	double calorias;
 };
 
