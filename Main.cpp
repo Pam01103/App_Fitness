@@ -5,6 +5,12 @@
 
 using namespace std;
 
+struct usuario {
+    double peso;
+    double altura;
+    double años;
+};
+
 void ingesta_calorias();
 void validacion_ingesta(bool&, string, string, string);
 void quema_calorias();
@@ -12,6 +18,7 @@ void registro_rendimiento();
 
 int contadorx = 0;
 int opcionR;
+usuario datos;
 int main()
 {
 	char OP=0;
@@ -359,6 +366,11 @@ void validacion_ingesta(bool &valido, string in_peso, string in_altura, string i
 		if (peso < 0 || altura < 0 || anios < 0)
 		{
 			valido = false;
+		}
+		else
+		{			
+			usuario temp = { peso, altura, anios};
+			datos = temp; 
 		}
 	}
 	if (!valido)
