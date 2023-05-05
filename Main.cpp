@@ -5,27 +5,30 @@
 
 using namespace std;
 
-struct usuario {
+struct usuario { //Se crea la estructura usuario para guardar unformación y acceder a ella de manera más fácil
 	double peso;
 	double altura;
 	double anios;
 	double calorias;
 };
 
-struct tiempo {
+struct tiempo { //Se usa esta estructura para facilitar cálculos de pérdida de calorías.
 	double horas;
 	double minutos;
 };
 
-void ingesta_calorias();
+//FUNCIONES
+//Se declaran las funciones que se utilizan a lo largo de todo el código.
+void ingesta_calorias(); 
 void validacion_ingesta(bool&, string, string, string);
 void validacion_quema(bool&, string, string);
 
 void quema_calorias();
 void registro_rendimiento();
 
-int contadorx = 0;
-int opcionR;
+int contadorx = 0; //Este contador bloquea la segunda opción del menú si no se ha accesado a la tercera primero.
+int opcionR; //Menú
+// Se declaran los nombres de los datos de estructuras:
 usuario datos;
 tiempo tiempo_entr;
 int main()
@@ -33,16 +36,15 @@ int main()
 	char OP = 0;
 	string input;
 	do
-	{
+	{//Se imprime el menú
 		system("cls");
 		cout << "\n ********************** Menu Principal **************************\n";
 		cout << "                    1. Ingesta de calorias\n";
 		cout << "                    2. Quema de calorias\n";
 		cout << "                    3. Registro de rendimiento\n";
-		//cout << "                    4. Calculos\n"; //Se prevee cubrir esta opcion una vez vistos más temas.
-		cout << "                    5. Salir\n ";
+		cout << "                    4. Salir\n ";
 		cout << "                      Ingrese una opcion: ";
-		cin >> input;
+		cin >> input; //Lee la opción del menú.
 		if (input.length() == 1)
 		{
 			OP = input[0];
@@ -51,31 +53,27 @@ int main()
 			case '1': //Para la ingesta de calorias, pedimos datos al usuario para conocer las calorias que deben consumir y las que consumen
 				ingesta_calorias();
 				break;
-			case '2':
+			case '2': //Primero se debe registrar un rendimiento. Luego se determinan las calorías quemadas en cada sesión.
 				quema_calorias();
 				break;
 			case '3':
-				registro_rendimiento();
+				registro_rendimiento(); //Se registran los ejercicios y las repeticiones que se hizo en cada ejercicio.
 				break;
 			case '4':
-				cout << "Proximamente!!" << endl;
-				system("pause");
 				break;
-			case '5':
-				break;
-			default:
+			default://En caso de ingresar una opsión inválida
 				cout << "Opcion no valida, por favor ingrese otra opcion." << endl;
 				system("pause");
 				break;
 			}
 		}
-		else
+		else //En caso de ingresar una opsión inválida
 		{
 			cout << "Opcion no valida, por favor ingrese otra opcion." << endl;
 			system("pause");
 		}
 
-	} while (OP != '5');
+	} while (OP != '4');
 	system("PAUSE");
 	return 0;
 	system("cls");
@@ -84,11 +82,11 @@ int main()
 }
 
 double peso, altura, anios;
-void ingesta_calorias()
+void ingesta_calorias() //Se manda a llamar desde la opción 1. Aquí se registran las calorías correspondientes.
 {
-	float calorias_consumidas = 0, calorias_necesarias;
-	char genero = ' ', opcionI, prot, verd, gras, carb;
-	string in, in_peso, in_altura, in_anios, in_prot, in_verd, in_gras, in_carb;
+	float calorias_consumidas = 0, calorias_necesarias; //Se declaran variables como númeors
+	char genero = ' ', opcionI, prot, verd, gras, carb; //Para las validaciones, estas variables se registran primero como char
+	string in, in_peso, in_altura, in_anios, in_prot, in_verd, in_gras, in_carb; //Para las validaciones, estas variables se registran primero como strings
 	bool valido;
 	do
 	{
@@ -103,7 +101,7 @@ void ingesta_calorias()
 			switch (genero)
 			{
 			case '1':
-				do
+				do //La acción se repite hasta que se regrese la función con valores válidos.
 				{
 					valido = true;
 					system("cls");
@@ -114,7 +112,7 @@ void ingesta_calorias()
 					cin >> in_altura;
 					cout << "Ingresa tu edad en anios: ";
 					cin >> in_anios;
-					validacion_ingesta(valido, in_peso, in_altura, in_anios);
+					validacion_ingesta(valido, in_peso, in_altura, in_anios); //Se manda a llamar la función de validación
 				} while (!valido);
 
 				calorias_necesarias = 66 + (13.7 * peso) + (5 * altura) - (6.75 * anios); //Formula obtenida en internet
@@ -122,7 +120,7 @@ void ingesta_calorias()
 				system("pause");
 				break;
 			case '2':
-				do
+				do//La acción se repite hasta que se regrese la función con valores válidos.
 				{
 					valido = true;
 					system("cls");
@@ -133,20 +131,20 @@ void ingesta_calorias()
 					cin >> in_altura;
 					cout << "Ingresa tu edad en anios: ";
 					cin >> in_anios;
-					validacion_ingesta(valido, in_peso, in_altura, in_anios);
-				} while (!valido);
+					validacion_ingesta(valido, in_peso, in_altura, in_anios); //Se manda a llamar la función de validación
+				} while (!valido); //Permite continuar una vez sea válido.
 
 				calorias_necesarias = 655 + (9.6 * peso) + (1.8 * altura) - (4.7 * anios); //Formula obtenida en internet
 				cout << "La cantidad de calorias que necesitas es: " << calorias_necesarias << endl;
 				system("pause");
 				break;
-			default:
+			default: //En caso de no haber obtenido una respuesta válida del usuario.
 				cout << "Opcion no valida. Por favor intenta de nuevo." << endl;
 				system("pause");
 				break;
 			}
 		}
-		else
+		else //En caso de no haber obtenido una respuesta válida del usuario
 		{
 			cout << "Opcion no valida. Por favor intenta de nuevo." << endl;
 			system("pause");
@@ -162,12 +160,12 @@ void ingesta_calorias()
 		cout << "Cantidad acumulada: " << calorias_consumidas << endl;
 		cout << "Opcion: ";
 		cin >> in;
-		if (in.length() == 1)
+		if (in.length() == 1) //Permite que sólo se ingresen valores de un sólo carácter
 		{
 			opcionI = in[0];
 			switch (opcionI)
 			{
-			case '1':
+			case '1': //Se busca como char para validar
 				do
 				{   //Aqui, el usuario puede elegir las veces necesarias cada alimento por cada 100 gramos y se van sumando las calorias hasta que decida salir
 					system("cls");
@@ -180,7 +178,7 @@ void ingesta_calorias()
 					cin >> in_prot;
 					if (in.length() == 1)
 					{
-						prot = in_prot[0];
+						prot = in_prot[0]; //En cada uno de los casos se calculan e imprimen las calorías consumidas, y se agregan al total
 						switch (prot)
 						{
 						case '1':
@@ -207,13 +205,13 @@ void ingesta_calorias()
 							break;
 						default:
 							cout << "Opcion no valida. Por favor intenta de nuevo." << endl;
-							system("pause");
+							system("pause"); //En caso de no haber obtenido una respuesta válida del usuario.
 							break;
 						}
 					}
 					else
 					{
-						cout << "Opcion no valida. Por favor intenta de nuevo." << endl;
+						cout << "Opcion no valida. Por favor intenta de nuevo." << endl;//En caso de no haber obtenido una respuesta válida del usuario.
 						system("pause");
 					}
 				} while (prot != '6');
@@ -229,7 +227,7 @@ void ingesta_calorias()
 					cout << "5. Limon (100 gramos = 29 calorias)" << endl;
 					cout << "6. Salir" << endl;
 					cin >> in_verd;
-					if (in_verd.length() == 1)
+					if (in_verd.length() == 1) //Este paso se añade como paso de seguridad extra.
 					{
 						verd = in_verd[0];
 						switch (verd)
@@ -262,33 +260,33 @@ void ingesta_calorias()
 							break;
 						}
 					}
-				} while (verd != '6');
+				} while (verd != '6'); //Se rompe el ciclo
 				break;
 			case '3': //Aqui, el usuario debe ingresar las grasas que consume en gramos y se hace el calculo en calorias
 				system("cls");
 				cout << "Que cantidad de grasas consumes en gramos? (1 gramo = 9 calorias): ";
 				cin >> in_gras;
 				valido = true;
-				for (int i = 0; i < in_gras.length(); i++)
+				for (int i = 0; i < in_gras.length(); i++) //Este bloque se dedica a validar que el gramaje indicado sea de un valor correcto.
 				{
 					if (!isdigit(in_gras[i]))
 					{
 						valido = false;
 					}
 				}
-				if (valido)
+				if (valido) //Si es válido, se procede a la siguiente validación
 				{
 					gras = stoi(in_gras);
-					if (gras < 0)
+					if (gras < 0) //Comprueba que sea un número positivo el ingresado.
 					{
 						valido = false;
 					}
 				}
-				if (!valido)
+				if (!valido) //Se marca como inválido y se repite la operación
 				{
 					cout << "Cantidad no valida. Por favor vuelve a intentar." << endl; system("pause");
 				}
-				else
+				else //Se declara válido y continúa.
 				{
 					calorias_consumidas += gras * 9;
 					cout << "Cantidad agregada." << endl; system("pause");
@@ -300,26 +298,26 @@ void ingesta_calorias()
 				cout << "Que cantidad de carbohidratos consumes en gramos? (1 gramo = 4 calorias): ";
 				cin >> in_carb;
 				valido = true;
-				for (int i = 0; i < in_carb.length(); i++)
+				for (int i = 0; i < in_carb.length(); i++) //Comprueba que la cantidad de carbohidratos perteneza a números
 				{
 					if (!isdigit(in_carb[i]))
 					{
 						valido = false;
 					}
 				}
-				if (valido)
+				if (valido) //Si lo anterior es válido, se procede con la siguiente validación.
 				{
-					carb = stoi(in_carb);
+					carb = stoi(in_carb); //Comprueba que el número ingresado sea positivo
 					if (carb < 0)
 					{
 						valido = false;
 					}
 				}
-				if (!valido)
+				if (!valido)//Se declara el valor dado como inválido, se repite el proceso.
 				{
 					cout << "Cantidad no valida. Por favor vuelve a intentar." << endl; system("pause");
 				}
-				else
+				else //Se declara el valor dado como válido, continúa el programa.
 				{
 					calorias_consumidas += carb * 4;
 					cout << "Cantidad agregada." << endl; system("pause");
@@ -328,13 +326,13 @@ void ingesta_calorias()
 				break;
 			case '5':
 				break;
-			default:
+			default://En caso de no haber obtenido una respuesta válida del usuario.
 				cout << "Opcion no valida. Por favor intenta de nuevo." << endl;
 				system("pause");
 				break;
 			}
 		}
-		else
+		else//En caso de no haber obtenido una respuesta válida del usuario.
 		{
 			cout << "Opcion no valida. Por favor intenta de nuevo." << endl;
 			system("pause");
@@ -343,46 +341,47 @@ void ingesta_calorias()
 	} while (opcionI != '5');
 }
 
+//La siguiente función se encarga de validar que todos los valores obtenidos en ingesta sean números positivos.
 void validacion_ingesta(bool& valido, string in_peso, string in_altura, string in_anios)
 {
 
-	for (int i = 0; i < in_peso.length(); i++)
+	for (int i = 0; i < in_peso.length(); i++) //Revisa que el valor ingresado para peso sea un número.
 	{
 		if (!isdigit(in_peso[i]) && in_peso[i] != '.')
 		{
-			valido = false;
+			valido = false; //Se declara como falso
 		}
 	}
-	for (int i = 0; i < in_altura.length(); i++)
+	for (int i = 0; i < in_altura.length(); i++) //Se revisa que la altura sea un número.
 	{
 		if (!isdigit(in_altura[i]) && in_altura[i] != '.')
 		{
 			valido = false;
 		}
 	}
-	for (int i = 0; i < in_anios.length(); i++)
+	for (int i = 0; i < in_anios.length(); i++) //Revisa que el valor ingresado como años sea un número
 	{
 		if (!isdigit(in_anios[i]) && in_anios[i] != '.')
 		{
 			valido = false;
 		}
 	}
-	if (valido)
+	if (valido) //Si todos los anteriores son correctos, siguen las siguientes validaciones
 	{
 		peso = stod(in_peso);
 		altura = stod(in_altura);
 		anios = stod(in_anios);
-		if (peso < 0 || altura < 0 || anios < 0)
+		if (peso < 0 || altura < 0 || anios < 0) //Se revisa que todos los números dados sean mayores a cero
 		{
 			valido = false;
 		}
-		else
+		else //Se aceptan y se continúa con el código
 		{
 			usuario temp = { peso, altura, anios };
 			datos = temp;
 		}
 	}
-	if (!valido)
+	if (!valido) //Los valores ingresados se declaran como inválidos y se repite la función.
 	{
 		cout << "Uno de los datos que ingresaste es invalido. Por favor vuelve a ingresar tus datos." << endl;
 		system("pause");
@@ -394,7 +393,7 @@ void quema_calorias()
 	if (contadorx != 0) //Se usa este condicional para evitar que se registren quemas de calorias sin ejercicio previo
 	{
 		system("cls");
-		
+
 		string calculo_cal[3][2] = { {"1","0"},{"2","0"},{"3","0"} };
 		string calculos[3] = { "horas", "minutos", "calorias quemadas" };
 		//	De acuerdo a nuestra investigacion, establecimos una relacion para aproximar las calorias quemadas por minuto y hora
@@ -402,7 +401,7 @@ void quema_calorias()
 		bool valido2;
 		do
 		{
-			valido2 = true;
+			valido2 = true; //Se crea el bool de validación para los datos de horas y minutos
 			cout << "Por cuanto tiempo ejercitaste?\n1. Horas: ";
 			cin >> calculo_cal[0][1];
 			cout << "2. Minutos: ";
@@ -432,7 +431,7 @@ void quema_calorias()
 			cout << "Dependiendo de tu peso y de la intensidad del ejercicio, puedes llegar a quemar muchas calorias en un entrenamiento de piernas. ";
 			system("pause");
 			break;
-		default:
+		default://En caso de no haber obtenido una respuesta válida del usuario.
 			cout << "Opcion no valida!" << endl;
 			system("pause");
 			break;
@@ -440,7 +439,7 @@ void quema_calorias()
 
 
 	}
-	else {
+	else { //En caso de no haber registrado primero rendimiento
 		cout << "\n\t\tQuema de Calorias" << endl;
 		cout << "Primero accede a la opcion 3 del menu." << endl;
 		system("pause");
@@ -449,11 +448,16 @@ void quema_calorias()
 
 void registro_rendimiento()
 {
-	int series[4];
-	double pesos[4];
-	string ejercicios[1];
-	double producto[4];
+	//MEMORIA DINÁMICA
+	//Se declaran las variables que se van a usar:
+	double* producto, * pesos;
 	int mayor = 0, menor = 0;
+	string* ejercicios;
+	int* series;
+	series = (int*)calloc(4, 4 * sizeof(int));
+	producto = (double*)calloc(4, 4 * sizeof(double));
+	pesos = (double*)calloc(4, 4 * sizeof(double));
+	ejercicios = (string*)calloc(4, 1 * sizeof(string));
 	contadorx++;
 	// submenu 3 
 	system("cls");
@@ -629,39 +633,38 @@ void registro_rendimiento()
 
 
 
-
+//Esta función comprueba que los valores iniciados en quema de calorías sean válidos
 void validacion_quema(bool& valido, string in_horas, string in_minutos)
 {
-
-	for (int i = 0; i < in_horas.length(); i++)
+	for (int i = 0; i < in_horas.length(); i++) //Se comprueba que las horas sean un número
 	{
 		if (!isdigit(in_horas[i]) && in_horas[i] != '.')
 		{
 			valido = false;
 		}
 	}
-	for (int i = 0; i < in_minutos.length(); i++)
+	for (int i = 0; i < in_minutos.length(); i++) //Se comprueba que el valor dado para minutos sea válido.
 	{
 		if (!isdigit(in_minutos[i]) && in_minutos[i] != '.')
 		{
 			valido = false;
 		}
 	}
-	if (valido)
+	if (valido) //Si lo anterior se comprobó, se continúa con las siguientes validaciones:
 	{
 		double horas = stod(in_horas);
 		double minutos = stod(in_minutos);
-		if (horas < 0 || minutos < 0)
+		if (horas < 0 || minutos <= 0) //Comprueba que los valores dados para minutos y segundos sean mayores a cero.
 		{
 			valido = false;
 		}
-		else
+		else //Se fuardan los valores dentro de la estructura de tiempo.
 		{
 			tiempo temp = { horas, minutos };
 			tiempo_entr = temp;
 		}
 	}
-	if (!valido)
+	if (!valido)////En caso de no haber obtenido una respuesta válida del usuario.
 	{
 		cout << "Uno de los datos que ingresaste es invalido. Por favor vuelve a ingresar tus datos." << endl;
 		system("pause");
